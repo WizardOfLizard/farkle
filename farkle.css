@@ -1,0 +1,21 @@
+body {
+    background-color: rgb(65, 62, 62);
+}
+h1 {
+    color: rgb(202, 202, 202);
+    text-align: center;
+}
+h3 {
+    color: rgb(202, 202, 202);
+    text-align: center;
+}
+.remove {
+    display: none;
+}
+.center {
+    display: grid;
+    justify-content: center;
+}
+.background {
+    background-color: rgb(209, 209, 209);
+}
