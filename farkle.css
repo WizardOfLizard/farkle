@@ -14,6 +14,11 @@ h3 {
 }
 .center {
     display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+}
+.buttonCenter {
+    display: grid;
     justify-content: center;
 }
 .background {

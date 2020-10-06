@@ -5,12 +5,21 @@
     </head>
     <body>
         <h1>Farkle</h1>
-        <button id="rollDice">Roll the dice!</button>
+        <div class="buttonCenter">
+            <button id="rollDice">Roll the dice!</button>
+        </div>
         <div class="center">
-            <img src="dice.jpg" alt="dice" width=500px>
+            <div class="dieItem">
+                <img id="die1" src class="remove" alt="die" width=250px>
+            </div>
+            <div class="dieItem">
+                <img id="die2" src class="remove" alt="die" width=250px>
+            </div>
         </div>
         <h3 id="rollTot">Roll total: No Roll Yet</h3>
-        <button id="resetScore" class="remove">Reset</button>
+        <div class="buttonCenter"></div>
+            <button id="resetScore" class="remove">Reset</button>
+        </div>
         <script src="farkle.js"></script>
     </body>
 </html>
