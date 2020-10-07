@@ -5,16 +5,26 @@ h1 {
     color: rgb(202, 202, 202);
     text-align: center;
 }
-h3 {
+h2 {
     color: rgb(202, 202, 202);
     text-align: center;
 }
 .remove {
     display: none;
 }
+.die {
+    width: 60%;
+}
 .center {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+}
+.superCenter {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 15% 80%;
+    grid-row-gap: 25%;
     justify-content: center;
 }
 .buttonCenter {
