@@ -239,7 +239,22 @@ function resetAll () {
     die4AEl.classList.add("remove")
     die5AEl.classList.add("remove")
     die6AEl.classList.add("remove")
+
+    die1BEl.classList.add("remove")
+    die2BEl.classList.add("remove")
+    die3BEl.classList.add("remove")
+    die4BEl.classList.add("remove")
+    die5BEl.classList.add("remove")
+    die6BEl.classList.add("remove")
+
     resetAllEl.classList.add("remove")
+
+    roll1Saved = false;
+    roll2Saved = false;
+    roll3Saved = false;
+    roll4Saved = false;
+    roll5Saved = false;
+    roll6Saved = false;
 }
 
 rollDiceEl.addEventListener("click", rollDice)
