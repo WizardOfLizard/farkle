@@ -30,6 +30,8 @@ let roll4Saved = false
 let roll5Saved = false
 let roll6Saved = false
 
+let isFarkle = true
+
 let score1 = 0
 let score2 = 0
 
@@ -40,6 +42,7 @@ function getRandomInt (max) {
 }
 
 function rollDice () {
+    console.log("New Roll...")
     if (!roll1Saved) {
         die1AEl.classList.remove("remove")
     }
@@ -61,27 +64,27 @@ function rollDice () {
     resetAllEl.classList.remove("remove")
     if (!roll1Saved) {
         roll1 = getRandomInt(6) + 1
-        console.log("Rolling die 1")
+        //console.log("Rolling die 1")
     }
     if (!roll2Saved) {
         roll2 = getRandomInt(6) + 1
-        console.log("Rolling die 2")
+        //console.log("Rolling die 2")
     }
     if (!roll3Saved) {
         roll3 = getRandomInt(6) + 1
-        console.log("Rolling die 3")
+        //console.log("Rolling die 3")
     }
     if (!roll4Saved) {
         roll4 = getRandomInt(6) + 1
-        console.log("Rolling die 4")
+        //console.log("Rolling die 4")
     }
     if (!roll5Saved) {
         roll5 = getRandomInt(6) + 1
-        console.log("Rolling die 5")
+        //console.log("Rolling die 5")
     }
     if (!roll6Saved) {
         roll6 = getRandomInt(6) + 1
-        console.log("Rolling die 6")
+        //console.log("Rolling die 6")
     }
     
     if (roll1 === 1) {
@@ -198,7 +201,198 @@ function rollDice () {
         document.getElementById("die6A").src="dice-six-faces-six.png"
         document.getElementById("die6B").src="dice-six-faces-six.png"
     }
+    checkAll()
+    //console.log(`${checkNum(1, 2)}`)
     //console.log("Rolling dice")
+}
+
+function checkNum (num, amnt) {
+    let total = 0
+    if (roll1 === num) {
+        total ++
+    }
+    if (roll2 === num) {
+        total ++
+    }
+    if (roll3 === num) {
+        total ++
+    }
+    if (roll4 === num) {
+        total ++
+    }
+    if (roll5 === num) {
+        total ++
+    }
+    if (roll6 === num) {
+        total ++
+    }
+    if (total >= amnt) {
+        return true
+    } else {
+        return false
+    }
+}
+function check3Pair () {
+    let total = 0
+    //console.log("Checking...")
+    if (checkNum(1, 2)) {
+        total ++
+        //console.log("pair of ones")
+    }
+    if (checkNum(2, 2)) {
+        total ++
+        //console.log("pair of twos")
+    }
+    if (checkNum(3, 2)) {
+        total ++
+        //console.log("pair of threes")
+    }
+    if (checkNum(4, 2)) {
+        total ++
+        //console.log("pair of fours")
+    }
+    if (checkNum(5, 2)) {
+        total ++
+        //console.log("pair of fives")
+    }
+    if (checkNum(6, 2)) {
+        total ++
+        //console.log("pair of sixes")
+    }
+    if (total === 3) {
+        return true
+    } else {
+        return false
+    }
+}
+function checkPairFour () {
+    let total = 0
+    if (checkNum(1, 2)) {
+        total ++
+    }
+    if (checkNum(2, 2)) {
+        total ++
+    }
+    if (checkNum(3, 2)) {
+        total ++
+    }
+    if (checkNum(4, 2)) {
+        total ++
+    }
+    if (checkNum(5, 2)) {
+        total ++
+    }
+    if (checkNum(6, 2)) {
+        total ++
+    }
+    if (checkNum(1, 4)) {
+        total ++
+    } else if (checkNum(2, 4)) {
+        total ++
+    } else if (checkNum(3, 4)) {
+        total ++
+    } else if (checkNum(4, 4)) {
+        total ++
+    } else if (checkNum(5, 4)) {
+        total ++
+    } else if (checkNum(6, 4)) {
+        total ++
+    } else {
+        total --
+    }
+    if (total === 3) {
+        return true
+    } else {
+        return false
+    }
+}
+function check2Trip () {
+    let total = 0
+    if (checkNum(1, 3)) {
+        total ++
+    }
+    if (checkNum(2, 3)) {
+        total ++
+    }
+    if (checkNum(3, 3)) {
+        total ++
+    }
+    if (checkNum(4, 3)) {
+        total ++
+    }
+    if (checkNum(5, 3)) {
+        total ++
+    }
+    if (checkNum(6, 3)) {
+        total ++
+    }
+    if (total === 2) {
+        return true
+    } else {
+        return false
+    }
+}
+function checkAll () {
+    if (checkNum(1, 1)) {
+        isFarkle = false
+        console.log("There is one one.")
+    }
+    if (checkNum(5, 1)) {
+        isFarkle = false
+        console.log("There is one five.")
+    }
+    if (checkNum(1, 3)) {
+        isFarkle = false
+        console.log("There are three ones.")
+    }
+    if (checkNum(2, 3)) {
+        isFarkle = false
+        console.log("There are three twos.")
+    }
+    if (checkNum(3, 3)) {
+        isFarkle = false
+        console.log("There are three threes.")
+    }
+    if (checkNum(4, 3)) {
+        isFarkle = false
+        console.log("There are three fours.")
+    }
+    if (checkNum(5, 3)) {
+        isFarkle = false
+        console.log("There are three fives.")
+    }
+    if (checkNum(6, 3)) {
+        isFarkle = false
+        console.log("There are three sixes.")
+    }
+    if (checkNum(1, 4) || checkNum(2, 4) || checkNum(3, 4) || checkNum(4, 4) || checkNum(5, 4) || checkNum(6, 4)) {
+        isFarkle = false
+        console.log("There is four of a kind.")
+    }
+    if (checkNum(1, 5) || checkNum(2, 5) || checkNum(3, 5) || checkNum(4, 5) || checkNum(5, 5) || checkNum(6, 5)) {
+        isFarkle = false
+        console.log("There is five of a kind.")
+    }
+    if (checkNum(1, 6) || checkNum(2, 6) || checkNum(3, 6) || checkNum(4, 6) || checkNum(5, 6) || checkNum(6, 6)) {
+        isFarkle = false
+        console.log("There is six of a kind.")
+    }
+    if (checkNum(1, 1) && checkNum(2, 1) && checkNum(3, 1) && checkNum(4, 1) && checkNum(5, 1) && checkNum(6, 1)) {
+        isFarkle = false
+        console.log("There is a straight.")
+    }
+    if (check3Pair()) {
+        isFarkle = false
+        console.log("There are three pairs.")
+    }
+    if (checkPairFour()) {
+        isFarkle = false
+        console.log("There is a pair and a four of a kind.")
+    }
+    if (check2Trip()) {
+        isFarkle = false
+        console.log("There are 2 triples.")
+    }
 }
 
 function saveDie1 () {
