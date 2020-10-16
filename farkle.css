@@ -1,11 +1,5 @@
 body {
     background-color: rgb(65, 62, 62);
-}
-h1 {
-    color: rgb(202, 202, 202);
-    text-align: center;
-}
-h2 {
     color: rgb(202, 202, 202);
     text-align: center;
 }
@@ -20,11 +14,16 @@ h2 {
     grid-template-columns: auto auto auto;
     justify-content: center;
 }
+.scoreCenter {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    justify-content: center;
+}
 .superCenter {
     display: grid;
     grid-template-columns: 40% 40%;
-    grid-template-rows: 15% 80%;
-    grid-row-gap: 25%;
+    grid-template-rows: 15% 70% 10%;
+    grid-row-gap: 10%;
     justify-content: center;
 }
 .buttonCenter {

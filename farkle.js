@@ -16,6 +16,26 @@ let die4BEl = document.getElementById("die4B")
 let die5BEl = document.getElementById("die5B")
 let die6BEl = document.getElementById("die6B")
 
+let oneOneEl = document.getElementById("oneOne")
+let oneFiveEl = document.getElementById("oneFive")
+let threeOneEl = document.getElementById("threeOne")
+let threeTwoEl = document.getElementById("threeTwo")
+let threeThreeEl = document.getElementById("threeThree")
+let threeFourEl = document.getElementById("threeFour")
+let threeFiveEl = document.getElementById("threeFive")
+let threeSixEl = document.getElementById("threeSix")
+let fourKindEl = document.getElementById("fourKind")
+let fiveKindEl = document.getElementById("fiveKind")
+let sixKindEl = document.getElementById("sixKind")
+let straightEl = document.getElementById("straight")
+let threePairEl = document.getElementById("threePair")
+let pairQuadEl = document.getElementById("pairQuad")
+let twoTripEl = document.getElementById("twoTrip")
+
+let currentScoreEl = document.getElementById("currentScore")
+
+let saveEl = document.getElementById("save")
+
 let roll1
 let roll2
 let roll3
@@ -208,22 +228,22 @@ function rollDice () {
 
 function checkNum (num, amnt) {
     let total = 0
-    if (roll1 === num) {
+    if (roll1 === num && !roll1Saved) {
         total ++
     }
-    if (roll2 === num) {
+    if (roll2 === num && !roll2Saved) {
         total ++
     }
-    if (roll3 === num) {
+    if (roll3 === num && !roll3Saved) {
         total ++
     }
-    if (roll4 === num) {
+    if (roll4 === num && !roll4Saved) {
         total ++
     }
-    if (roll5 === num) {
+    if (roll5 === num && !roll5Saved) {
         total ++
     }
-    if (roll6 === num) {
+    if (roll6 === num && !roll6Saved) {
         total ++
     }
     if (total >= amnt) {
@@ -335,63 +355,108 @@ function check2Trip () {
 function checkAll () {
     if (checkNum(1, 1)) {
         isFarkle = false
+        oneOneEl.classList.remove("remove")
         console.log("There is one one.")
+    } else {
+        oneOneEl.classList.add("remove")
     }
     if (checkNum(5, 1)) {
         isFarkle = false
+        oneFiveEl.classList.remove("remove")
         console.log("There is one five.")
+    } else {
+        oneFiveEl.classList.add("remove")
     }
     if (checkNum(1, 3)) {
         isFarkle = false
+        threeOneEl.classList.remove("remove")
         console.log("There are three ones.")
+    } else {
+        threeOneEl.classList.add("remove")
     }
     if (checkNum(2, 3)) {
         isFarkle = false
+        threeTwoEl.classList.remove("remove")
         console.log("There are three twos.")
+    } else {
+        threeTwoEl.classList.add("remove")
     }
     if (checkNum(3, 3)) {
         isFarkle = false
+        threeThreeEl.classList.remove("remove")
         console.log("There are three threes.")
+    } else {
+        threeThreeEl.classList.add("remove")
     }
     if (checkNum(4, 3)) {
         isFarkle = false
+        threeFourEl.classList.remove("remove")
         console.log("There are three fours.")
+    } else {
+        threeFourEl.classList.add("remove")
     }
     if (checkNum(5, 3)) {
         isFarkle = false
+        threeFiveEl.classList.remove("remove")
         console.log("There are three fives.")
+    } else {
+        threeFiveEl.classList.add("remove")
     }
     if (checkNum(6, 3)) {
         isFarkle = false
+        threeSixEl.classList.remove("remove")
         console.log("There are three sixes.")
+    } else {
+        threeSixEl.classList.add("remove")
     }
     if (checkNum(1, 4) || checkNum(2, 4) || checkNum(3, 4) || checkNum(4, 4) || checkNum(5, 4) || checkNum(6, 4)) {
         isFarkle = false
+        fourKindEl.classList.remove("remove")
         console.log("There is four of a kind.")
+    } else {
+        fourKindEl.classList.add("remove")
     }
     if (checkNum(1, 5) || checkNum(2, 5) || checkNum(3, 5) || checkNum(4, 5) || checkNum(5, 5) || checkNum(6, 5)) {
         isFarkle = false
+        fiveKindEl.classList.remove("remove")
         console.log("There is five of a kind.")
+    } else {
+        fiveKindEl.classList.add("remove")
     }
     if (checkNum(1, 6) || checkNum(2, 6) || checkNum(3, 6) || checkNum(4, 6) || checkNum(5, 6) || checkNum(6, 6)) {
         isFarkle = false
+        sixKindEl.classList.remove("remove")
         console.log("There is six of a kind.")
+    } else {
+        sixKindEl.classList.add("remove")
     }
     if (checkNum(1, 1) && checkNum(2, 1) && checkNum(3, 1) && checkNum(4, 1) && checkNum(5, 1) && checkNum(6, 1)) {
         isFarkle = false
+        straightEl.classList.remove("remove")
         console.log("There is a straight.")
+    } else {
+        straightEl.classList.add("remove")
     }
     if (check3Pair()) {
         isFarkle = false
+        threePairEl.classList.remove("remove")
         console.log("There are three pairs.")
+    } else {
+        threePairEl.classList.add("remove")
     }
     if (checkPairFour()) {
         isFarkle = false
+        pairQuadEl.classList.remove("remove")
         console.log("There is a pair and a four of a kind.")
+    } else {
+        pairQuadEl.classList.add("remove")
     }
     if (check2Trip()) {
         isFarkle = false
+        twoTripEl.classList.remove("remove")
         console.log("There are 2 triples.")
+    } else {
+        twoTripEl.classList.add("remove")
     }
 }
 
@@ -443,24 +508,24 @@ function resetAll () {
 
     resetAllEl.classList.add("remove")
 
-    roll1Saved = false;
-    roll2Saved = false;
-    roll3Saved = false;
-    roll4Saved = false;
-    roll5Saved = false;
-    roll6Saved = false;
+    roll1Saved = false
+    roll2Saved = false
+    roll3Saved = false
+    roll4Saved = false
+    roll5Saved = false
+    roll6Saved = false
 }
 
 rollDiceEl.addEventListener("click", rollDice)
 
 resetAllEl.addEventListener("click", resetAll)
 
-die1AEl.addEventListener("click", saveDie1)
-die2AEl.addEventListener("click", saveDie2)
-die3AEl.addEventListener("click", saveDie3)
-die4AEl.addEventListener("click", saveDie4)
-die5AEl.addEventListener("click", saveDie5)
-die6AEl.addEventListener("click", saveDie6)
+//die1AEl.addEventListener("click", saveDie1)
+//die2AEl.addEventListener("click", saveDie2)
+//die3AEl.addEventListener("click", saveDie3)
+//die4AEl.addEventListener("click", saveDie4)
+//die5AEl.addEventListener("click", saveDie5)
+//die6AEl.addEventListener("click", saveDie6)
 
 
 //console.log(getRandomInt(3))
