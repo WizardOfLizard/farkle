@@ -32,6 +32,10 @@ let threePairEl = document.getElementById("threePair")
 let pairQuadEl = document.getElementById("pairQuad")
 let twoTripEl = document.getElementById("twoTrip")
 
+let currentPEl = document.getElementById("currentP")
+let score1El = document.getElementById("score1")
+let score2El = document.getElementById("score2")
+
 let currentScoreEl = document.getElementById("currentScore")
 
 let saveEl = document.getElementById("save")
@@ -55,14 +59,30 @@ let isFarkle = true
 let score1 = 0
 let score2 = 0
 
+let currentPlayer = 1
+
+let name1 = window.prompt("Player 1, what is your name?")
+let name2 = window.prompt("Player 2, what is your name?")
+
 let currentScore = 0
+
+let endgame = false
 
 function getRandomInt (max) {
     return Math.floor(Math.random() * Math.floor(max))
 }
 
 function rollDice () {
+    if (roll1Saved && roll2Saved && roll3Saved && roll4Saved && roll5Saved && roll6Saved) {
+        roll1Saved = false
+        roll2Saved = false
+        roll3Saved = false
+        roll4Saved = false
+        roll5Saved = false
+        roll6Saved = false
+    }
     console.log("New Roll...")
+    isFarkle = true
     if (!roll1Saved) {
         die1AEl.classList.remove("remove")
     }
@@ -81,7 +101,6 @@ function rollDice () {
     if (!roll6Saved) {
         die6AEl.classList.remove("remove")
     }
-    resetAllEl.classList.remove("remove")
     if (!roll1Saved) {
         roll1 = getRandomInt(6) + 1
         //console.log("Rolling die 1")
@@ -221,7 +240,37 @@ function rollDice () {
         document.getElementById("die6A").src="dice-six-faces-six.png"
         document.getElementById("die6B").src="dice-six-faces-six.png"
     }
+    rollDiceEl.classList.add("remove")
     checkAll()
+    if (isFarkle) {
+        window.alert("You rolled a Farkle.  Your turn is over.")
+        rollDiceEl.classList.remove("remove")
+        currentScore = 0
+        if (currentPlayer === 1) {
+            currentPlayer = 2
+            console.log("changing players...")
+            currentPEl.innerHTML = `Current Player: ${name2}`
+        }
+        if (currentPlayer === 2) {
+            currentPlayer = 1
+            currentPEl.innerHTML = `Current Player: ${name1}`
+        }
+        currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+        saveEl.classList.add("remove")
+        resetAll()
+        if (endgame) {
+            window.alert("The game is over, let's see who won.")
+            if (score1 > score2) {
+                window.alert(`Well done, ${name1}, you beat ${name2} by ${score1-score2}.  You are a good player.  If you want to play again, reload the page.`)
+            }
+            if (score1 < score2) {
+                window.alert(`Well done, ${name2}, you beat ${name1} by ${score2-score1}.  You are a good player.  If you want to play again, reload the page.`)
+            }
+            if (score1 === score2) {
+                window.alert(`Wow... Just... Wow...  either you guys are stupid, or you were trying to break the game.  ${name1} and ${name2}, you disapoint me.  If you want to play the game CORRECTLY, reload the page.`)
+            }
+        }
+    }
     //console.log(`${checkNum(1, 2)}`)
     //console.log("Rolling dice")
 }
@@ -464,31 +513,721 @@ function saveDie1 () {
     roll1Saved = true
     die1AEl.classList.add("remove")
     die1BEl.classList.remove("remove")
+    saveEl.classList.remove("remove")
 }
 function saveDie2 () {
     roll2Saved = true
     die2AEl.classList.add("remove")
     die2BEl.classList.remove("remove")
+    saveEl.classList.remove("remove")
 }
 function saveDie3 () {
     roll3Saved = true
     die3AEl.classList.add("remove")
     die3BEl.classList.remove("remove")
+    saveEl.classList.remove("remove")
 }
 function saveDie4 () {
     roll4Saved = true
     die4AEl.classList.add("remove")
     die4BEl.classList.remove("remove")
+    saveEl.classList.remove("remove")
 }
 function saveDie5 () {
     roll5Saved = true
     die5AEl.classList.add("remove")
     die5BEl.classList.remove("remove")
+    saveEl.classList.remove("remove")
 }
 function saveDie6 () {
     roll6Saved = true
     die6AEl.classList.add("remove")
     die6BEl.classList.remove("remove")
+    saveEl.classList.remove("remove")
+}
+
+function scoreOneOne () {
+    let total = 0
+    if (roll1 === 1 && !roll1Saved && total < 1) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 1 && !roll2Saved && total < 1) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 1 && !roll3Saved && total < 1) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 1 && !roll4Saved && total < 1) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 1 && !roll5Saved && total < 1) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 1 && !roll6Saved && total < 1) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 100
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreOneFive () {
+    let total = 0
+    if (roll1 === 5 && !roll1Saved && total < 1) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 5 && !roll2Saved && total < 1) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 5 && !roll3Saved && total < 1) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 5 && !roll4Saved && total < 1) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 5 && !roll5Saved && total < 1) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 5 && !roll6Saved && total < 1) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 50
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreThreeOne () {
+    let total = 0
+    if (roll1 === 1 && !roll1Saved && total < 3) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 1 && !roll2Saved && total < 3) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 1 && !roll3Saved && total < 3) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 1 && !roll4Saved && total < 3) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 1 && !roll5Saved && total < 3) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 1 && !roll6Saved && total < 3) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 300
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreThreeTwo () {
+    let total = 0
+    if (roll1 === 2 && !roll1Saved && total < 3) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 2 && !roll2Saved && total < 3) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 2 && !roll3Saved && total < 3) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 2 && !roll4Saved && total < 3) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 2 && !roll5Saved && total < 3) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 2 && !roll6Saved && total < 3) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 200
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreThreeThree () {
+    let total = 0
+    if (roll1 === 3 && !roll1Saved && total < 3) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 3 && !roll2Saved && total < 3) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 3 && !roll3Saved && total < 3) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 3 && !roll4Saved && total < 3) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 3 && !roll5Saved && total < 3) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 3 && !roll6Saved && total < 3) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 300
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreThreeFour () {
+    let total = 0
+    if (roll1 === 4 && !roll1Saved && total < 3) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 4 && !roll2Saved && total < 3) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 4 && !roll3Saved && total < 3) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 4 && !roll4Saved && total < 3) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 4 && !roll5Saved && total < 3) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 4 && !roll6Saved && total < 3) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 400
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreThreeFive () {
+    let total = 0
+    if (roll1 === 5 && !roll1Saved && total < 3) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 5 && !roll2Saved && total < 3) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 5 && !roll3Saved && total < 3) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 5 && !roll4Saved && total < 3) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 5 && !roll5Saved && total < 3) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 5 && !roll6Saved && total < 3) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 500
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreThreeSix () {
+    let total = 0
+    if (roll1 === 6 && !roll1Saved && total < 3) {
+        saveDie1()
+        total ++
+    }
+    if (roll2 === 6 && !roll2Saved && total < 3) {
+        saveDie2()
+        total ++
+    }
+    if (roll3 === 6 && !roll3Saved && total < 3) {
+        saveDie3()
+        total ++
+    }
+    if (roll4 === 6 && !roll4Saved && total < 3) {
+        saveDie4()
+        total ++
+    }
+    if (roll5 === 6 && !roll5Saved && total < 3) {
+        saveDie5()
+        total ++
+    }
+    if (roll6 === 6 && !roll6Saved && total < 3) {
+        saveDie6()
+        total ++
+    }
+    currentScore += 600
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreFourKind () {
+    let total = 0
+    if (checkNum(1, 4)) {
+        if (roll1 === 1 && !roll1Saved && total < 4) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 1 && !roll2Saved && total < 4) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 1 && !roll3Saved && total < 4) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 1 && !roll4Saved && total < 4) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 1 && !roll5Saved && total < 4) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 1 && !roll6Saved && total < 4) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(2, 4)) {
+        if (roll1 === 2 && !roll1Saved && total < 4) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 2 && !roll2Saved && total < 4) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 2 && !roll3Saved && total < 4) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 2 && !roll4Saved && total < 4) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 2 && !roll5Saved && total < 4) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 2 && !roll6Saved && total < 4) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(3, 4)) {
+        if (roll1 === 3 && !roll1Saved && total < 4) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 3 && !roll2Saved && total < 4) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 3 && !roll3Saved && total < 4) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 3 && !roll4Saved && total < 4) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 3 && !roll5Saved && total < 4) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 3 && !roll6Saved && total < 4) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(4, 4)) {
+        if (roll1 === 4 && !roll1Saved && total < 4) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 4 && !roll2Saved && total < 4) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 4 && !roll3Saved && total < 4) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 4 && !roll4Saved && total < 4) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 4 && !roll5Saved && total < 4) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 4 && !roll6Saved && total < 4) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(5, 4)) {
+        if (roll1 === 5 && !roll1Saved && total < 4) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 5 && !roll2Saved && total < 4) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 5 && !roll3Saved && total < 4) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 5 && !roll4Saved && total < 4) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 5 && !roll5Saved && total < 4) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 5 && !roll6Saved && total < 4) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(6, 4)) {
+        if (roll1 === 6 && !roll1Saved && total < 4) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 6 && !roll2Saved && total < 4) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 6 && !roll3Saved && total < 4) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 6 && !roll4Saved && total < 4) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 6 && !roll5Saved && total < 4) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 6 && !roll6Saved && total < 4) {
+            saveDie6()
+            total ++
+        }
+    }
+    currentScore += 1000
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreFiveKind () {
+    let total = 0
+    if (checkNum(1, 4)) {
+        if (roll1 === 1 && !roll1Saved && total < 5) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 1 && !roll2Saved && total < 5) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 1 && !roll3Saved && total < 5) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 1 && !roll4Saved && total < 5) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 1 && !roll5Saved && total < 5) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 1 && !roll6Saved && total < 5) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(2, 4)) {
+        if (roll1 === 2 && !roll1Saved && total < 5) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 2 && !roll2Saved && total < 5) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 2 && !roll3Saved && total < 5) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 2 && !roll4Saved && total < 5) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 2 && !roll5Saved && total < 5) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 2 && !roll6Saved && total < 5) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(3, 4)) {
+        if (roll1 === 3 && !roll1Saved && total < 5) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 3 && !roll2Saved && total < 5) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 3 && !roll3Saved && total < 5) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 3 && !roll4Saved && total < 5) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 3 && !roll5Saved && total < 5) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 3 && !roll6Saved && total < 5) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(4, 4)) {
+        if (roll1 === 4 && !roll1Saved && total < 5) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 4 && !roll2Saved && total < 5) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 4 && !roll3Saved && total < 5) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 4 && !roll4Saved && total < 5) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 4 && !roll5Saved && total < 5) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 4 && !roll6Saved && total < 5) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(5, 4)) {
+        if (roll1 === 5 && !roll1Saved && total < 5) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 5 && !roll2Saved && total < 5) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 5 && !roll3Saved && total < 5) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 5 && !roll4Saved && total < 5) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 5 && !roll5Saved && total < 5) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 5 && !roll6Saved && total < 5) {
+            saveDie6()
+            total ++
+        }
+    } else if (checkNum(6, 4)) {
+        if (roll1 === 6 && !roll1Saved && total < 5) {
+            saveDie1()
+            total ++
+        }
+        if (roll2 === 6 && !roll2Saved && total < 5) {
+            saveDie2()
+            total ++
+        }
+        if (roll3 === 6 && !roll3Saved && total < 5) {
+            saveDie3()
+            total ++
+        }
+        if (roll4 === 6 && !roll4Saved && total < 5) {
+            saveDie4()
+            total ++
+        }
+        if (roll5 === 6 && !roll5Saved && total < 5) {
+            saveDie5()
+            total ++
+        }
+        if (roll6 === 6 && !roll6Saved && total < 5) {
+            saveDie6()
+            total ++
+        }
+    }
+    currentScore += 2000
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreSixKind () {
+    saveDie1()
+    saveDie2()
+    saveDie3()
+    saveDie4()
+    saveDie5()
+    saveDie6()
+    currentScore += 3000
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreStraight () {
+    saveDie1()
+    saveDie2()
+    saveDie3()
+    saveDie4()
+    saveDie5()
+    saveDie6()
+    currentScore += 1500
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreThreePair () {
+    saveDie1()
+    saveDie2()
+    saveDie3()
+    saveDie4()
+    saveDie5()
+    saveDie6()
+    currentScore += 1500
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scorePairQuad () {
+    saveDie1()
+    saveDie2()
+    saveDie3()
+    saveDie4()
+    saveDie5()
+    saveDie6()
+    currentScore += 1500
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+function scoreTwoTrip () {
+    saveDie1()
+    saveDie2()
+    saveDie3()
+    saveDie4()
+    saveDie5()
+    saveDie6()
+    currentScore += 2500
+    rollDiceEl.classList.remove("remove")
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    //console.log(currentScore)
+    checkAll()
+}
+
+function saveScore () {
+    if (currentPlayer === 1) {
+        if (score1 > 0 || currentScore >= 500) {
+            score1 += currentScore
+            currentScore = 0
+            currentPlayer = 2
+            currentPEl.innerHTML = `Current Player: ${name2}`
+            saveEl.classList.add("remove")
+        }
+    } else if (currentPlayer === 2) {
+        if (score2 > 0 || currentScore >= 500) {
+            score2 += currentScore
+            currentScore = 0
+            currentPlayer = 1
+            currentPEl.innerHTML = `Current Player: ${name1}`
+            saveEl.classList.add("remove")
+        }
+    }
+    score1El.innerHTML = `${name1}'s Score: ${score1}`
+    score2El.innerHTML = `${name2}'s Score: ${score2}`
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    resetAll()
+    if (score1 >= 1000 && !endgame) {
+        endgame = true
+        window.alert(`${name1} has gained ${score1} points.  ${name2}, you must beat this score on your next turn or ${name1} will win.  If you beat ${name1}'s score, you win.  Good luck ${name2}, you have ${score1-score2} points to go.`)
+    }
+    if (score2 >= 1000 && !endgame) {
+        endgame = true
+        window.alert(`${name2} has gained ${score2} points.  ${name1}, you must beat this score on your next turn or ${name2} will win.  If you beat ${name2}'s score, you win.  Good luck ${name1}, you have ${score2-score1} points to go.`)
+    }
+    if (endgame) {
+        window.alert("The game is over, let's see who won.")
+        if (score1 > score2) {
+            window.alert(`Well done, ${name1}, you beat ${name2} by ${score1-score2}.  You are a good player.  If you want to play again, reload the page.`)
+        }
+        if (score1 < score2) {
+            window.alert(`Well done, ${name2}, you beat ${name1} by ${score2-score1}.  You are a good player.  If you want to play again, reload the page.`)
+        }
+        if (score1 === score2) {
+            window.alert(`Wow... Just... Wow...  either you guys are stupid, or you were trying to break the game.  ${name1} and ${name2}, you disapoint me.  If you want to play the game CORRECTLY, reload the page.`)
+        }
+    }
 }
 
 function resetAll () {
@@ -506,8 +1245,6 @@ function resetAll () {
     die5BEl.classList.add("remove")
     die6BEl.classList.add("remove")
 
-    resetAllEl.classList.add("remove")
-
     roll1Saved = false
     roll2Saved = false
     roll3Saved = false
@@ -518,7 +1255,23 @@ function resetAll () {
 
 rollDiceEl.addEventListener("click", rollDice)
 
-resetAllEl.addEventListener("click", resetAll)
+saveEl.addEventListener("click", saveScore)
+
+oneOneEl.addEventListener("click", scoreOneOne)
+oneFiveEl.addEventListener("click", scoreOneFive)
+threeOneEl.addEventListener("click", scoreThreeOne)
+threeTwoEl.addEventListener("click", scoreThreeTwo)
+threeThreeEl.addEventListener("click", scoreThreeThree)
+threeFourEl.addEventListener("click", scoreThreeFour)
+threeFiveEl.addEventListener("click", scoreThreeFive)
+threeSixEl.addEventListener("click", scoreThreeSix)
+fourKindEl.addEventListener("click", scoreFourKind)
+fiveKindEl.addEventListener("click", scoreFiveKind)
+sixKindEl.addEventListener("click", scoreSixKind)
+straightEl.addEventListener("click", scoreStraight)
+threePairEl.addEventListener("click", scoreThreePair)
+pairQuadEl.addEventListener("click", scorePairQuad)
+twoTripEl.addEventListener("click", scoreTwoTrip)
 
 //die1AEl.addEventListener("click", saveDie1)
 //die2AEl.addEventListener("click", saveDie2)

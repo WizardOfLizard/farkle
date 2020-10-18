@@ -30,6 +30,12 @@ body {
     display: grid;
     justify-content: center;
 }
+.scoreGrid {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 25%;
+    justify-content: center;
+}
 .background {
     background-color: rgb(209, 209, 209);
 }
