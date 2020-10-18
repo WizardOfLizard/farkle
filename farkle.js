@@ -250,8 +250,7 @@ function rollDice () {
             currentPlayer = 2
             console.log("changing players...")
             currentPEl.innerHTML = `Current Player: ${name2}`
-        }
-        if (currentPlayer === 2) {
+        } else if (currentPlayer === 2) {
             currentPlayer = 1
             currentPEl.innerHTML = `Current Player: ${name1}`
         }
@@ -271,6 +270,7 @@ function rollDice () {
             }
         }
     }
+    console.log(currentPlayer)
     //console.log(`${checkNum(1, 2)}`)
     //console.log("Rolling dice")
 }
@@ -1208,14 +1208,6 @@ function saveScore () {
     score2El.innerHTML = `${name2}'s Score: ${score2}`
     currentScoreEl.innerHTML = `Current Score: ${currentScore}`
     resetAll()
-    if (score1 >= 1000 && !endgame) {
-        endgame = true
-        window.alert(`${name1} has gained ${score1} points.  ${name2}, you must beat this score on your next turn or ${name1} will win.  If you beat ${name1}'s score, you win.  Good luck ${name2}, you have ${score1-score2} points to go.`)
-    }
-    if (score2 >= 1000 && !endgame) {
-        endgame = true
-        window.alert(`${name2} has gained ${score2} points.  ${name1}, you must beat this score on your next turn or ${name2} will win.  If you beat ${name2}'s score, you win.  Good luck ${name1}, you have ${score2-score1} points to go.`)
-    }
     if (endgame) {
         window.alert("The game is over, let's see who won.")
         if (score1 > score2) {
@@ -1227,6 +1219,14 @@ function saveScore () {
         if (score1 === score2) {
             window.alert(`Wow... Just... Wow...  either you guys are stupid, or you were trying to break the game.  ${name1} and ${name2}, you disapoint me.  If you want to play the game CORRECTLY, reload the page.`)
         }
+    }
+    if (score1 >= 10000 && !endgame) {
+        endgame = true
+        window.alert(`${name1} has gained ${score1} points.  ${name2}, you must beat this score on your next turn or ${name1} will win.  If you beat ${name1}'s score, you win.  Good luck ${name2}, you have ${score1-score2} points to go.`)
+    }
+    if (score2 >= 10000 && !endgame) {
+        endgame = true
+        window.alert(`${name2} has gained ${score2} points.  ${name1}, you must beat this score on your next turn or ${name2} will win.  If you beat ${name2}'s score, you win.  Good luck ${name1}, you have ${score2-score1} points to go.`)
     }
 }
 
