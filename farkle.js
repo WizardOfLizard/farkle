@@ -85,21 +85,27 @@ function rollDice () {
     isFarkle = true
     if (!roll1Saved) {
         die1AEl.classList.remove("remove")
+        die1BEl.classList.remove("remove")
     }
     if (!roll2Saved) {
         die2AEl.classList.remove("remove")
+        die2BEl.classList.remove("remove")
     }
     if (!roll3Saved) {
         die3AEl.classList.remove("remove")
+        die3BEl.classList.remove("remove")
     }
     if (!roll4Saved) {
         die4AEl.classList.remove("remove")
+        die4BEl.classList.remove("remove")
     }
     if (!roll5Saved) {
         die5AEl.classList.remove("remove")
+        die5BEl.classList.remove("remove")
     }
     if (!roll6Saved) {
         die6AEl.classList.remove("remove")
+        die6BEl.classList.remove("remove")
     }
     if (!roll1Saved) {
         roll1 = getRandomInt(6) + 1
