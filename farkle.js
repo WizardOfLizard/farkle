@@ -40,6 +40,14 @@ let currentScoreEl = document.getElementById("currentScore")
 
 let saveEl = document.getElementById("save")
 
+let farkleEl = document.getElementById("farkle")
+
+let endgameAnnounceEl = document.getElementById("endgameAnnounce")
+let gameOverEl = document.getElementById("gameOver")
+
+let ground1El = document.getElementById("ground1")
+let ground2El = document.getElementById("ground2")
+
 let roll1
 let roll2
 let roll3
@@ -68,6 +76,11 @@ let currentScore = 0
 
 let endgame = false
 
+currentPEl.innerHTML = `Current Player: ${name1}`
+
+score1El.innerHTML = `${name1}'s Score: ${score1}`
+score2El.innerHTML = `${name2}'s Score: ${score2}`
+
 function getRandomInt (max) {
     return Math.floor(Math.random() * Math.floor(max))
 }
@@ -85,27 +98,27 @@ function rollDice () {
     isFarkle = true
     if (!roll1Saved) {
         die1AEl.classList.remove("remove")
-        die1BEl.classList.remove("remove")
+        die1BEl.classList.add("remove")
     }
     if (!roll2Saved) {
         die2AEl.classList.remove("remove")
-        die2BEl.classList.remove("remove")
+        die2BEl.classList.add("remove")
     }
     if (!roll3Saved) {
         die3AEl.classList.remove("remove")
-        die3BEl.classList.remove("remove")
+        die3BEl.classList.add("remove")
     }
     if (!roll4Saved) {
         die4AEl.classList.remove("remove")
-        die4BEl.classList.remove("remove")
+        die4BEl.classList.add("remove")
     }
     if (!roll5Saved) {
         die5AEl.classList.remove("remove")
-        die5BEl.classList.remove("remove")
+        die5BEl.classList.add("remove")
     }
     if (!roll6Saved) {
         die6AEl.classList.remove("remove")
-        die6BEl.classList.remove("remove")
+        die6BEl.classList.add("remove")
     }
     if (!roll1Saved) {
         roll1 = getRandomInt(6) + 1
@@ -249,32 +262,8 @@ function rollDice () {
     rollDiceEl.classList.add("remove")
     checkAll()
     if (isFarkle) {
-        window.alert("You rolled a Farkle.  Your turn is over.")
-        rollDiceEl.classList.remove("remove")
-        currentScore = 0
-        if (currentPlayer === 1) {
-            currentPlayer = 2
-            console.log("changing players...")
-            currentPEl.innerHTML = `Current Player: ${name2}`
-        } else if (currentPlayer === 2) {
-            currentPlayer = 1
-            currentPEl.innerHTML = `Current Player: ${name1}`
-        }
-        currentScoreEl.innerHTML = `Current Score: ${currentScore}`
         saveEl.classList.add("remove")
-        resetAll()
-        if (endgame) {
-            window.alert("The game is over, let's see who won.")
-            if (score1 > score2) {
-                window.alert(`Well done, ${name1}, you beat ${name2} by ${score1-score2}.  You are a good player.  If you want to play again, reload the page.`)
-            }
-            if (score1 < score2) {
-                window.alert(`Well done, ${name2}, you beat ${name1} by ${score2-score1}.  You are a good player.  If you want to play again, reload the page.`)
-            }
-            if (score1 === score2) {
-                window.alert(`Wow... Just... Wow...  either you guys are stupid, or you were trying to break the game.  ${name1} and ${name2}, you disapoint me.  If you want to play the game CORRECTLY, reload the page.`)
-            }
-        }
+        farkleEl.classList.remove("remove")
     }
     console.log(currentPlayer)
     //console.log(`${checkNum(1, 2)}`)
@@ -1215,24 +1204,36 @@ function saveScore () {
     currentScoreEl.innerHTML = `Current Score: ${currentScore}`
     resetAll()
     if (endgame) {
-        window.alert("The game is over, let's see who won.")
-        if (score1 > score2) {
-            window.alert(`Well done, ${name1}, you beat ${name2} by ${score1-score2}.  You are a good player.  If you want to play again, reload the page.`)
-        }
-        if (score1 < score2) {
-            window.alert(`Well done, ${name2}, you beat ${name1} by ${score2-score1}.  You are a good player.  If you want to play again, reload the page.`)
-        }
-        if (score1 === score2) {
-            window.alert(`Wow... Just... Wow...  either you guys are stupid, or you were trying to break the game.  ${name1} and ${name2}, you disapoint me.  If you want to play the game CORRECTLY, reload the page.`)
-        }
+        endgameRun()
     }
-    if (score1 >= 10000 && !endgame) {
+    if (score1 >= 100 && !endgame) {
         endgame = true
-        window.alert(`${name1} has gained ${score1} points.  ${name2}, you must beat this score on your next turn or ${name1} will win.  If you beat ${name1}'s score, you win.  Good luck ${name2}, you have ${score1-score2} points to go.`)
+        endgameAnnounceEl.classList.remove("remove")
+        endgameAnnounceEl.innerHTML = `${name1} has gained ${score1} points.  ${name2}, you must beat this score on your next turn or ${name1} will win.  If you beat ${name1}'s score, you win.  Good luck ${name2}, you have ${score1-score2} points to go.`
     }
-    if (score2 >= 10000 && !endgame) {
+    if (score2 >= 100 && !endgame) {
         endgame = true
-        window.alert(`${name2} has gained ${score2} points.  ${name1}, you must beat this score on your next turn or ${name2} will win.  If you beat ${name2}'s score, you win.  Good luck ${name1}, you have ${score2-score1} points to go.`)
+        endgameAnnounceEl.classList.remove("remove")
+        endgameAnnounceEl.innerHTML = `${name2} has gained ${score2} points.  ${name1}, you must beat this score on your next turn or ${name2} will win.  If you beat ${name2}'s score, you win.  Good luck ${name1}, you have ${score2-score1} points to go.`
+    }
+}
+
+function farkle () {
+    rollDiceEl.classList.remove("remove")
+    currentScore = 0
+    if (currentPlayer === 1) {
+        currentPlayer = 2
+        console.log("changing players...")
+        currentPEl.innerHTML = `Current Player: ${name2}`
+    } else if (currentPlayer === 2) {
+        currentPlayer = 1
+        currentPEl.innerHTML = `Current Player: ${name1}`
+    }
+    currentScoreEl.innerHTML = `Current Score: ${currentScore}`
+    resetAll()
+    farkleEl.classList.add("remove")
+    if (endgame) {
+        endgameRun()
     }
 }
 
@@ -1259,9 +1260,33 @@ function resetAll () {
     roll6Saved = false
 }
 
+function endgameRun () {
+    gameOverEl.classList.remove("remove")
+
+    resetAll()
+    rollDiceEl.classList.add("remove")
+    currentPEl.classList.add("remove")
+    ground1El.classList.add("remove")
+    ground2El.classList.add("remove")
+    currentScoreEl.classList.add("remove")
+
+
+    if (score1 > score2) {
+        gameOverEl.innerHTML = `Well done, ${name1}, you beat ${name2} by ${score1-score2}.  You are a good player.  If you want to play again, reload the page.`
+    }
+    if (score1 < score2) {
+        gameOverEl.innerHTML = `Well done, ${name2}, you beat ${name1} by ${score2-score1}.  You are a good player.  If you want to play again, reload the page.`
+    }
+    if (score1 === score2) {
+        gameOverEl.innerHTML = `Wow... Just... Wow...  either you guys are stupid, or you were trying to break the game.  ${name1} and ${name2}, you disapoint me.  If you want to play the game CORRECTLY, reload the page.`
+    }
+}
+
 rollDiceEl.addEventListener("click", rollDice)
 
 saveEl.addEventListener("click", saveScore)
+
+farkleEl.addEventListener("click", farkle)
 
 oneOneEl.addEventListener("click", scoreOneOne)
 oneFiveEl.addEventListener("click", scoreOneFive)

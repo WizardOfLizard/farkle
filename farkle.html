@@ -6,6 +6,7 @@
     <body>
         <h1>Farkle</h1>
         <h2 id="currentP">Current Player: Player 1</h2>
+        <h3 class="remove" id="endgameAnnounce">Endgame Announcement Message</h3>
         <div class="scoreGrid">
             <h3 id="score1">Player 1 Score: 0</h3>
             <h3 id="score2">Player 2 Score: 0</h3>
@@ -14,8 +15,8 @@
             <button id="rollDice">Roll the dice!</button>
         </div>
         <div class="superCenter">
-            <h2>Rolled Dice</h2>
-            <h2>Saved Dice</h2>
+            <h2 id="ground1">Rolled Dice</h2>
+            <h2 id="ground2">Saved Dice</h2>
             <div class="center">
                 <div>
                     <img id="die1A" src class="remove die" alt="die" width=250px>
@@ -105,9 +106,11 @@
             </div>
             <div>
                 <h3 id="currentScore">Current Score: 0</h3>
-                <button class="remove" id="save">Save Score</button>
+                <button class="remove" id="save">Save Score - End Turn</button>
+                <button class="remove" id="farkle">Farkle - End Turn</button>
             </div>
         </div>
+        <h3 class="remove" id="gameOver">Game Over Text</h3>
         <script src="farkle.js"></script>
     </body>
 </html>
