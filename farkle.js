@@ -1206,12 +1206,12 @@ function saveScore () {
     if (endgame) {
         endgameRun()
     }
-    if (score1 >= 100 && !endgame) {
+    if (score1 >= 10000 && !endgame) {
         endgame = true
         endgameAnnounceEl.classList.remove("remove")
         endgameAnnounceEl.innerHTML = `${name1} has gained ${score1} points.  ${name2}, you must beat this score on your next turn or ${name1} will win.  If you beat ${name1}'s score, you win.  Good luck ${name2}, you have ${score1-score2} points to go.`
     }
-    if (score2 >= 100 && !endgame) {
+    if (score2 >= 10000 && !endgame) {
         endgame = true
         endgameAnnounceEl.classList.remove("remove")
         endgameAnnounceEl.innerHTML = `${name2} has gained ${score2} points.  ${name1}, you must beat this score on your next turn or ${name2} will win.  If you beat ${name2}'s score, you win.  Good luck ${name1}, you have ${score2-score1} points to go.`
