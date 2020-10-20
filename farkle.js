@@ -1269,7 +1269,7 @@ function endgameRun () {
     ground1El.classList.add("remove")
     ground2El.classList.add("remove")
     currentScoreEl.classList.add("remove")
-
+    endgameAnnounceEl.classList.add("remove")
 
     if (score1 > score2) {
         gameOverEl.innerHTML = `Well done, ${name1}, you beat ${name2} by ${score1-score2}.  You are a good player.  If you want to play again, reload the page.`
